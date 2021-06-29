@@ -27,6 +27,7 @@ utilities.notifier.init(process.env.ENV, process.env.SLACK_BOT_HOOK);
 
 const dbConn = require('./server/utils/db');
 
+
 dbConn
     .then(async db => {
 
