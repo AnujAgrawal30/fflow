@@ -21,6 +21,7 @@ global.api = {
 global.rapydClient = new Rapyd(process.env.RAPYD_CLIENT_PUBLIC, process.env.RAPYD_CLIENT_SECRET, process.env.ENV);
 
 global.utilities = require('@growishpay/service-utilities');
+global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> process.exit());
 
 utilities.notifier.init(process.env.ENV, process.env.SLACK_BOT_HOOK);
 
