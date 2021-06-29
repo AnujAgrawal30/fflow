@@ -1,0 +1,469 @@
+@import "litegraph";
+@import "loader";
+@import "noty-theme";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #333;
+  color: #EEE;
+  font: 14px Lato, sans-serif;
+}
+
+h1 {
+  font-family: Lato, sans-serif;
+}
+
+h2 {
+  font-family: Lato, sans-serif;
+}
+
+.form-error {
+  font-size: 10px;
+  display: block;
+  margin-top: -8px;
+  padding: 0;
+  color: #c15656;
+  font-weight: 600;
+  height: 15px;
+}
+
+#powered-by {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 140px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-image: url("../images/powered-by-rapyd.png");
+}
+
+#main {
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+}
+
+
+#status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #FAA;
+  font-size: 18px;
+  padding: 5px;
+  /*border-radius: 5px;*/
+  width: -moz-calc( 50% - 30px);
+  min-height: 30px;
+  overflow: hidden;
+  background-color: #644;
+}
+
+#help-message {
+  padding: 2px;
+  font-size: 0.8em;
+  background-color: #464;
+  /*border-radius: 2px;*/
+}
+
+#content {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.fullscreen #content {
+  min-height: -moz-calc(100% - 80px);
+  min-height: -webkit-calc(100% - 80px);
+  min-height: calc(100% - 80px);
+}
+
+.info-section p {
+  padding-left: 20px;
+  margin: 2px;
+}
+
+.info-section strong {
+  color: #FEA;
+}
+
+#visual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+
+.item-list .item {
+  margin: 5px;
+  padding: 5px;
+  font-size: 1.2em;
+
+  background-color: transparent;
+  color: #999;
+  padding-left: 5px;
+  transition: background-color 300ms, color 300ms, padding-left 300ms;
+  -moz-transition: background-color 300ms, color 300ms, padding-left 300ms;
+  -webkit-transition: background-color 300ms, color 300ms, padding-left 300ms;
+}
+
+.item-list .item:hover {
+  background-color: #33A;
+  /*border-radius: 4px;*/
+  color: white;
+  padding-left: 15px;
+  transition: background-color 300ms, color 300ms, padding-left 300ms;
+  -moz-transition: background-color 300ms, color 300ms, padding-left 300ms;
+  -webkit-transition: background-color 300ms, color 300ms, padding-left 300ms;
+  cursor: pointer;
+}
+
+#gallery .item-list .item:hover {
+  background-color: #A83;
+}
+
+.item-list .item strong {
+  display: inline-block;
+  width: 200px;
+}
+
+.form label {
+  font-size: 1.2em;
+  width: 200px;
+  display: inline-block;
+  text-align: right;
+}
+
+label {
+  font-weight: bold;
+  color: #AAF;
+}
+
+.header input {
+  color: #EEE;
+  background-color: #555;
+  font-size: 1.2em;
+  border: 1px solid black;
+  /*border-radius: 4px;*/
+  padding: 2px;
+  /*box-shadow: inset 0 0 3px #333; */
+  font-family: Lato, sans-serif;
+  width: 250px;
+}
+
+textarea {
+  vertical-align: top;
+}
+
+#block-app {
+  width:100%;
+  height:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  text-align: center;
+  z-index: 6;
+}
+
+#block-app span {
+  display: block;
+  font-size: 30px;
+  margin: auto;
+  margin-top: 300px;
+}
+
+#block-app span a {
+  display: inline-block;
+  /*border-radius: 4px;*/
+  text-decoration: none;
+  color: black;
+  background-color: red;
+  padding: 0 4px 0 4px;
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 6px;
+  background: #222;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(200,200,200,0.4);
+}
+::-webkit-scrollbar-corner {
+  background: #766;
+}
+
+#editor {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+#editor .toolsbar {
+  width: 100%;
+  height: 30px;
+  background-color: #262626;
+  margin: 0;
+  padding: 0;
+}
+
+#editor .toolsbar button {
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 3px 0 0 3px;
+}
+
+#editor .toolsbar button.enabled {
+  background-color: #66A;
+}
+
+#world {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+}
+
+#worldcanvas {
+  background-color: #343;
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  background-color: rgba(50,50,90,0.8);
+  width: 100%;
+  height: 100%;
+}
+
+.popup .header, .nodepanel .header {
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  padding: 2px;
+}
+
+#help {
+  color: #eee;
+}
+
+#help p {
+  margin: 10px;
+}
+
+.selector {
+  font-size: 1.8em;
+}
+
+
+.selector select {
+  color: white;
+  background-color: black;
+  border: 0;
+  font-size: 1em;
+}
+
+.litegraph-editor {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  background-color: #333;
+  color: #eee;
+  font: 14px Lato, sans-serif;
+
+  position: relative;
+}
+
+.litegraph-editor h1 {
+  font-family: Lato, sans-serif;
+  color: #ddd;
+  font-size: 28px;
+  padding-left: 10px;
+  /*text-shadow: 0 1px 1px #333, 0 -1px 1px #777;*/
+  margin: 0;
+  font-weight: normal;
+}
+
+.litegraph-editor h1 span {
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  color: #aaa;
+}
+
+.litegraph-editor h2 {
+  font-family: Lato, sans-serif;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.litegraph-editor * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.litegraph-editor .content {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  background-color: #1a1a1a;
+}
+
+.litegraph-editor .header,
+.litegraph-editor .footer {
+  position: relative;
+  height: 40px;
+  background-color: #333;
+}
+
+.litegraph-editor .tools,
+.litegraph-editor .tools-left,
+.litegraph-editor .tools-right {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  vertical-align: top;
+
+  margin: 2px 5px 0 0px;
+}
+
+.litegraph-editor .tools-left {
+  right: auto;
+  left: 4px;
+}
+
+.litegraph-editor .footer {
+  height: 40px;
+  position: relative;
+  /*border-radius: 0 0 10px 10px;*/
+}
+
+.litegraph-editor .miniwindow {
+  background-color: #333;
+  border: 1px solid #111;
+}
+
+.litegraph-editor .miniwindow .corner-button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* BUTTONS **********************/
+
+.litegraph-editor .btn {
+  /*font-family: Lato, sans-serif;*/
+  color: #ccc;
+  font-size: 20px;
+  min-width: 30px;
+  /*border-radius: 0.3em;*/
+  border: 0 solid #666;
+  background-color: #3f3f3f;
+  /*box-shadow: 0 0 3px black;*/
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 1s;
+  -moz-transition: all 1s;
+  -webkit-transition: all 0.4s;
+}
+
+.litegraph-editor button:hover {
+  background-color: #999;
+  color: #fff;
+  transition: all 1s;
+  -moz-transition: all 1s;
+  -webkit-transition: all 0.4s;
+}
+
+.litegraph-editor button:active {
+  background-color: white;
+}
+
+.litegraph-editor button.fixed {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.2em;
+}
+
+.litegraph-editor button img {
+  margin: -4px;
+  vertical-align: top;
+  opacity: 0.8;
+  transition: all 1s;
+}
+
+.litegraph-editor button:hover img {
+  opacity: 1;
+}
+
+.litegraph-editor .header button {
+  height: 32px;
+  vertical-align: top;
+}
+
+.litegraph-editor .footer button {
+  /*font-size: 16px;*/
+}
+
+.litegraph-editor .toolbar-widget {
+  display: inline-block;
+}
+
+.litegraph-editor .editor-area {
+  width: 100%;
+  height: 100%;
+}
+
+.litegraph-editor textarea.code, .litegraph-editor div.code {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  padding: 4px;
+  font: 16px monospace;
+  overflow: auto;
+  resize: none;
+  outline: none;
+}
+
+.litegraph-editor .codeflask {
+  background-color: #2a2a2a;
+}
+
+.litegraph-editor .codeflask textarea {
+  opacity: 0;
+}
+
+.litegraph.dialog.settings textarea {
+  width: 360px;
+  padding: 0px 0px;
+  margin: 20px;
+  background: transparent;
+  border: none;
+  height: 440px;
+  color: white;
+  font-family: 'Lato';
+  resize: none;
+}
