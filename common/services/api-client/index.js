@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const RestInterface = require('./rest-interface-class');
 
-const baseURLTplDev = "http://127.0.0.1:2022/api";
+const baseURLTplDev = "/api";
 const baseURLTplProd = "TODO";
 
 
