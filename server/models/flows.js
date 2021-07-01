@@ -82,10 +82,44 @@ FlowsSchema.methods.refreshSchedules = function () {
 
                 let cron;
 
-                if (node.type === 'Schedule/Weekly') {
+                if (node.type === 'Schedule/Monthly') {
+
+                    cron = '0 ' + node.properties.atHour + ' '+ node.properties.atDayNumber + ' {months} *';
+                    const months = [];
+
+                    if (node.properties.january)
+                        months.push(1);
+                    if (node.properties.february)
+                        months.push(2);
+                    if (node.properties.march)
+                        months.push(3);
+                    if (node.properties.april)
+                        months.push(4);
+                    if (node.properties.may)
+                        months.push(5);
+                    if (node.properties.june)
+                        months.push(6);
+                    if (node.properties.july)
+                        months.push(7);
+                    if (node.properties.august)
+                        months.push(8);
+                    if (node.properties.september)
+                        months.push(9);
+                    if (node.properties.october)
+                        months.push(10);
+                    if (node.properties.november)
+                        months.push(11);
+                    if (node.properties.december)
+                        months.push(12);
+
+                    cron = cron.replace('{months}', months.join(","));
+
+
+                }
+                else if (node.type === 'Schedule/Weekly') {
 
                     cron = '0 ' + node.properties.atHour + ' * * ';
-                    const days = [];
+                    const days= [];
 
                     if (node.properties.sunday)
                         days.push(0);
