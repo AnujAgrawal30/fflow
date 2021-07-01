@@ -11,6 +11,8 @@ const bodyParser                = require('body-parser');
 const helmet                    = require('helmet');
 const { RateLimiterMongo }      = require('rate-limiter-flexible');
 const path                      = require('path');
+const agenda                    = require('./server/services/agenda');
+const Agendash                  = require('agendash');
 
 const Rapyd = require('./server/services/rapyd');
 
@@ -58,6 +60,7 @@ dbConn
 const rateLimiter           = require('./server/middlewares/rate-limiter');
 const apiMiddleware         = require('./server/middlewares/api');
 const maintenanceMiddleware = require('./server/middlewares/maintenance');
+const agendaAuthMiddleware  = require('./server/middlewares/agenda-web-auth');
 
 const app = express();
 
@@ -71,6 +74,13 @@ app.use(cors());
 app.options('*', cors());
 
 app.use(require('morgan')("combined", {"stream": utilities.logger.stream}));
+
+
+app.use(
+    "/worker/",
+    agendaAuthMiddleware,
+    Agendash(agenda, {title: `GW-V2-WORKER (${process.env.ENV.substring(0, 3)})`})
+);
 
 app.use(compression());
 app.use(helmet());
@@ -131,6 +141,10 @@ async function startAPIServer(db) {
     app.listen(process.env.SERVER_PORT, async () => {
 
         utilities.logger.info('API server running.', {tagLabel, port: process.env.SERVER_PORT});
+
+        await agenda.start();
+        utilities.logger.info('Agenda loaded', {tagLabel});
+
         utilities.state.increment('restarts');
         utilities.state.set('APILastBootDate', new Date());
 
