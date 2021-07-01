@@ -5,6 +5,7 @@ class Branch extends AbstractBlock {
 
     static title = "Branch";
     static desc = "Branches the output if a condition match";
+    static menu = "Logic/Branch";
 
     constructor() {
 

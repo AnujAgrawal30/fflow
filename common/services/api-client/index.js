@@ -2,24 +2,31 @@ const axios = require('axios');
 
 const RestInterface = require('./rest-interface-class');
 
-const baseURLTplDev = "/api";
-const baseURLTplProd = "TODO";
+const baseURLTplFEDev = "/api";
+const baseURLTplFEProd = "TODO";
+
+const baseURLTplBEDev = "http://127.0.0.1:2022/api";
+const baseURLTplBEProd = "TODO";
 
 
 module.exports = class ApiClient {
 
-    constructor(env, expressApp = null, options) {
+    constructor(env, end, options) {
 
         this.env = env.toLowerCase();
 
-        const rawSession = localStorage.getItem('iftptSession')
+        this.runningRequests = 0;
 
-        if (rawSession)
-            this.session = JSON.parse(rawSession);
+        if(end === 'FE') {
+            const rawSession = localStorage.getItem('fflowSession')
 
-        this.baseURL = env === 'production' ? baseURLTplProd : baseURLTplDev;
+            if (rawSession)
+                this.session = JSON.parse(rawSession);
+        }
 
-        this.expressApp = expressApp;
+        this.baseURL = end === 'FE' ? env === 'production' ? baseURLTplFEProd : baseURLTplFEDev : env === 'production' ? baseURLTplBEProd : baseURLTplBEDev;
+
+        this.end = end;
 
         this.global403ErrorManager = options && options.global403ErrorManager ? options.global403ErrorManager : null;
         this.global500ErrorManager = options && options.global500ErrorManager ? options.global500ErrorManager : null;
@@ -44,13 +51,15 @@ module.exports = class ApiClient {
     };
 
     setSession(session) {
-        if (session) {
-            this.session = session;
-            localStorage.setItem('iftptSession', JSON.stringify(session));
-        } else {
+
+        if(!session){
             this.session = null;
-            localStorage.removeItem('iftptSession');
+            return this.end === 'FE' && localStorage.removeItem('fflowSession');
         }
+
+        this.session = session;
+        this.end === 'FE' && localStorage.setItem('fflowSession', JSON.stringify(session));
+
     }
 
     getSession() {
@@ -59,11 +68,9 @@ module.exports = class ApiClient {
 
     async makeRequest(endpoint, method, payload, isPublic) {
 
-        //running on BE
-        if (this.expressApp)
-            return;
-
         const me = this;
+
+        this.runningRequests++;
 
         try {
 
@@ -78,17 +85,21 @@ module.exports = class ApiClient {
                 timeout: 15000
             });
 
+            this.runningRequests--;
+
             if (!response.data || response.data.error)
                 return Promise.reject();
 
-            if (endpoint === '/v1/auth/login' && method === 'POST') {
+            if (this.end === 'FE' && endpoint === '/v1/auth/login' && method === 'POST') {
                 this.setSession(response.data.data);
-            } else if (endpoint === '/v1/auth/logout' && method === 'POST') {
+            } else if (this.end === 'FE' && endpoint === '/v1/auth/logout' && method === 'POST') {
                 this.setSession(null);
             }
 
             return response.data;
         } catch (error) {
+
+            this.runningRequests--;
 
             error.response.status === 403 && this.global403ErrorManager && this.global403ErrorManager(error.response.data);
             error.response.status === 500 && this.global500ErrorManager && this.global500ErrorManager();

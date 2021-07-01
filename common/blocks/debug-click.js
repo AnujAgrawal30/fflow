@@ -3,8 +3,10 @@ const AbstractBlock = require('./abstract-block');
 
 class Click extends AbstractBlock {
 
-    static title = "Click Event"
-    static desc = "Propagates a <strong>click event</strong> when clicked."
+    static title = "Click Event";
+    static desc = "Propagates a <strong>click event</strong> when clicked.";
+
+    static menu = 'Debug/Click'
 
     constructor(props) {
         super(props);

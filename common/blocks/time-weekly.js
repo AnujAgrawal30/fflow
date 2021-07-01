@@ -6,6 +6,7 @@ class Weekly extends AbstractTimeBlock {
 
     static title = "Weekly schedule";
     static desc = "Fires an event every selected day of the week at a selected hour";
+    static menu = "Schedule/Weekly";
 
     constructor() {
         super();

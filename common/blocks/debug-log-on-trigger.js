@@ -5,7 +5,8 @@ const AbstractBlock = require('./abstract-block');
 class LogEvent extends AbstractBlock {
 
     static title = "Log on trigger";
-    static desc = "Logs events on trigger.";
+    static desc = "Logs events on trigger";
+    static menu = "Debug/Log on trigger";
 
     constructor() {
         super();
@@ -20,13 +21,14 @@ class LogEvent extends AbstractBlock {
 
     onAction(action, param) {
 
+        const data =  this.getInputData(1);
+        console.log("Log event on trigger", data);
+
         //Running on BE
         if(typeof document === 'undefined')
             return;
 
-        const data =  this.getInputData(1);
 
-        console.log(data);
 
         const el = document.getElementById(this.uuid);
 

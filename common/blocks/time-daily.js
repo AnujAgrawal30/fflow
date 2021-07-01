@@ -6,6 +6,7 @@ class Daily extends AbstractTimeBlock {
 
     static title = "Daily schedule";
     static desc = "Fires an event every day at a selected hour";
+    static menu = "Schedule/Daily";
 
     constructor() {
         super();

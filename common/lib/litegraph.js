@@ -654,7 +654,7 @@ if (typeof performance != "undefined") {
  * @param {Object} o data from previous serialization [optional]
  */
 
-function LGraph(o) {
+function LGraph(o, apiClient) {
     if (LiteGraph.debug) {
         console.log("Graph created");
     }
@@ -663,6 +663,9 @@ function LGraph(o) {
 
     if (o) {
         this.configure(o);
+    }
+    if(apiClient) {
+        this.apiClient = apiClient;
     }
 }
 

@@ -8,6 +8,7 @@ class Wallet extends AbstractBlock {
 
     static title = "Get Wallet";
     static desc = "Get Wallet information";
+    static menu = "Finance/Get Wallet";
 
     constructor(props) {
 
@@ -81,7 +82,7 @@ class Wallet extends AbstractBlock {
         if(!this.properties['wallet'])
             return;
 
-        const response = await apiClient.Wallets.read(this.properties['wallet']._id).execute();
+        const response = await this.graph.apiClient.Wallets.read(this.properties['wallet']._id).execute();
 
         this.setOutputData(1, response.data.balance);
         this.setOutputData(2, response.data.currency);

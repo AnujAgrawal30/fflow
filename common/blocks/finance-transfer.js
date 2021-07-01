@@ -7,6 +7,7 @@ class Wallet extends AbstractBlock {
 
     static title = "Transfer between wallets";
     static desc = "Transfers funds in real time between a debited wallet and a credited wallet";
+    static menu = "Finance/Transfer between wallets";
 
     constructor(props) {
 
@@ -143,7 +144,7 @@ class Wallet extends AbstractBlock {
             return;
 
 
-        const response = await apiClient.Transfers.create({
+        const response = await this.graph.apiClient.Transfers.create({
             debitedWallet: this.properties['debitedWallet']._id,
             creditedWallet: this.properties['creditedWallet']._id,
             amount: Math.round((amount + Number.EPSILON) * 100) / 100

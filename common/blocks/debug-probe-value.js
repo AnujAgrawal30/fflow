@@ -5,6 +5,7 @@ class LogEvent extends AbstractBlock {
 
     static title = "Probe value";
     static desc = "Shows the constant value on input";
+    static menu = "Debug/Probe";
 
     constructor() {
         super();

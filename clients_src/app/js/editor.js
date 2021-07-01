@@ -1,7 +1,7 @@
 const LiteGraph = require('../../../common/lib/litegraph');
 
 //Creates an interface to access extra features from a graph (like play, stop, live, etc)
-function Editor(container_id, options) {
+function Editor(container_id, options, apiClient) {
     options = options || {};
 
     //fill container
@@ -18,7 +18,7 @@ function Editor(container_id, options) {
     let canvas = root.querySelector(".graphcanvas");
 
     //create graph
-    const graph = (this.graph = new LiteGraph.LGraph());
+    const graph = (this.graph = new LiteGraph.LGraph(null, apiClient));
     const graphcanvas = (this.graphcanvas = new LiteGraph.LGraphCanvas(canvas, graph));
     graphcanvas.background_image = "/app/grid.36956d56.png";
 

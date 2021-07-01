@@ -1,6 +1,7 @@
 const Users         = require('../models/users');
 const unless        = require('express-unless');
 const mongoose      = require('mongoose');
+const jwt           = require('jsonwebtoken');
 
 const tagLabel  = 'userAuthMiddleware';
 
@@ -9,10 +10,13 @@ const mw = async (req, res, next) => {
     try {
 
         let token = req.headers['x-auth-token'];
+
         if (typeof token !== 'string' || token === "")
             return res.unauthorized();
 
-        const userId = (token.split("-"))[0];
+        const isJWT = !!token.match(/(^[\w-]*\.[\w-]*\.[\w-]*$)/);
+
+        const userId = isJWT ? jwt.verify(token, process.env.JWT_SECRET).data : (token.split("-"))[0];
 
         if(!mongoose.isValidObjectId(userId))
             return res.unauthorized();
@@ -26,7 +30,7 @@ const mw = async (req, res, next) => {
         if (!user)
             return res.unauthorized();
 
-        const isSessionValid = await user.isSessionValid(token);
+        const isSessionValid = isJWT ? true : await user.isSessionValid(token);
 
         if (!isSessionValid)
             return res.unauthorized();

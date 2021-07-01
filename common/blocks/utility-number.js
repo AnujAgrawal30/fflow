@@ -5,6 +5,7 @@ class Number extends AbstractBlock {
 
     static title = "Number";
     static desc = "Outputs a number";
+    static menu = "Constant/Number";
 
     constructor(props) {
 

@@ -8,6 +8,7 @@ class Wallet extends AbstractBlock {
 
     static title = "Bankwire";
     static desc = "Makes a deposit to a bank account from a selected debited wallet";
+    static menu = "Finance/Outgoing Bankwire";
 
     constructor(props) {
 
@@ -132,7 +133,7 @@ class Wallet extends AbstractBlock {
             return;
 
 
-        const response = await apiClient.Payouts.Bankwire.create({
+        const response = await this.graph.apiClient.Payouts.Bankwire.create({
             beneficiary: this.properties['beneficiary']._id,
             debitedWallet: this.properties['debitedWallet']._id,
             amount

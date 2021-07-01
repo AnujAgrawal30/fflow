@@ -3,18 +3,9 @@ const ApiClient = require('../../../common/services/api-client');
 const Modal = require('./modals/abstract');
 const blockingLoader = require('./blocking-loader');
 
-const ClickBlock = require('../../../common/blocks/debug-click');
-const LogOnTriggerBlock = require('../../../common/blocks/debug-log-on-trigger');
-const ProbeBlock = require('../../../common/blocks/debug-probe-value');
-const BranchBlock = require('../../../common/blocks/logic-branch');
-const TimeWeeklyBlock = require('../../../common/blocks/time-weekly');
-const TimeDailyBlock = require('../../../common/blocks/time-daily');
-const WalletBlock = require('../../../common/blocks/finance-wallet');
-const TransferBlock = require('../../../common/blocks/finance-transfer');
-const BankwireBlock = require('../../../common/blocks/finance-bankwire');
-const NumberBlock = require('../../../common/blocks/utility-number');
+const Blocks = require('../../../common/blocks');
 
-window.apiClient = new ApiClient('development', null, {
+window.apiClient = new ApiClient('development', 'FE', {
     global403ErrorManager: (error) => {
         Modal.Toast("error", error.message, 7000);
     },
@@ -40,7 +31,7 @@ window.flowEditor = new LiteGraph.Editor(
             blockingLoader.hide();
             Modal.Toast("success", "Flow saved!");
         }
-    });
+    }, apiClient);
 
 flowEditor.graphcanvas.render_canvas_border = false;
 
@@ -51,16 +42,16 @@ LiteGraph.allow_scripts = true;
 flowEditor.graphcanvas.show_info = true;
 flowEditor.graphcanvas.allow_searchbox = false;
 
-LiteGraph.registerNodeType("Debug/Click", ClickBlock);
-LiteGraph.registerNodeType("Debug/Log on trigger", LogOnTriggerBlock);
-LiteGraph.registerNodeType("Debug/Probe", ProbeBlock);
-LiteGraph.registerNodeType("Logic/Branch", BranchBlock);
-LiteGraph.registerNodeType("Schedule/Weekly", TimeWeeklyBlock);
-LiteGraph.registerNodeType("Schedule/Daily", TimeDailyBlock);
-LiteGraph.registerNodeType("Finance/Get Wallet", WalletBlock);
-LiteGraph.registerNodeType("Finance/Transfer between wallets", TransferBlock);
-LiteGraph.registerNodeType("Finance/Outgoing Bankwire", BankwireBlock);
-LiteGraph.registerNodeType("Constant/Number", NumberBlock);
+LiteGraph.registerNodeType(Blocks.ClickBlock.menu, Blocks.ClickBlock);
+LiteGraph.registerNodeType(Blocks.LogOnTriggerBlock.menu, Blocks.LogOnTriggerBlock);
+LiteGraph.registerNodeType(Blocks.ProbeBlock.menu, Blocks.ProbeBlock);
+LiteGraph.registerNodeType(Blocks.BranchBlock.menu, Blocks.BranchBlock);
+LiteGraph.registerNodeType(Blocks.TimeWeeklyBlock.menu, Blocks.TimeWeeklyBlock);
+LiteGraph.registerNodeType(Blocks.TimeDailyBlock.menu, Blocks.TimeDailyBlock);
+LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
+LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
+LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
+LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();
