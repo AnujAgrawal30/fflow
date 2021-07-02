@@ -4,6 +4,7 @@ const parser = require('cron-parser');
 const moment = require('moment');
 
 const publicFields = require("../plugins/public-fields");
+const { encrypt, decrypt } = require('../services/crypto');
 
 const tagLabel = 'flowsModel';
 
@@ -38,6 +39,17 @@ const FlowsSchema = new mongoose.Schema({
             },
             date: {
                 type: Date
+            }
+        },
+        incomingWebhook: {
+            method: {
+                type: String,
+                enum: ['GET', 'POST', '*']
+            },
+            secret: {
+                type: String,
+                get: key => decrypt(key),
+                set: key => encrypt(key)
             }
         },
         status: {
