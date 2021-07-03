@@ -17,6 +17,10 @@
     font-weight: bold;
   }
 
+  a:-webkit-any-link:focus-visible {
+    outline: none;
+  }
+
   .swal2-title {
     font-family: 'Poppins', sans-serif;
   }

@@ -20,6 +20,7 @@ LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
 LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
+LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
 
 
 const wait = async (time) => new Promise(resolve => setTimeout(resolve, time));
@@ -83,21 +84,32 @@ module.exports = agenda => {
 
                     await waitForCompletion(job, graph);
 
-                    flow.lastExecution.completed = true;
-                    flow.lastExecution.date = new Date();
                     flow.refreshSchedules();
-                    await flow.save();
-
-
-                    utilities.logger.debug("Flow completed", { tagLabel });
 
                 }
 
             }
-            else if(job.attrs.data.triggerType === 'webhook') {
+            else if(job.attrs.data.trigger === 'incomingUserWebhook') {
+
+
+                const entryNodes = graph.findNodesByType('Network/Incoming Webhook');
+
+
+                if(entryNodes.length >= 1) {
+
+                    setTimeout(() => entryNodes[0].triggerEvent(0, job.attrs.data.body), 0);
+
+                    await waitForCompletion(job, graph);
+
+                }
 
             }
 
+            flow.lastExecution.completed = true;
+            flow.lastExecution.date = new Date();
+            await flow.save();
+
+            utilities.logger.debug("Flow completed", { tagLabel });
             return Promise.resolve();
 
         } catch (error) {

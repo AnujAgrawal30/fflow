@@ -9,3 +9,4 @@ module.exports.WalletBlock = require('./finance-wallet');
 module.exports.TransferBlock = require('./finance-transfer');
 module.exports.BankwireBlock = require('./finance-bankwire');
 module.exports.NumberBlock = require('./utility-number');
+module.exports.NetworkIncomingWebhook = require('./network-incoming-webhook');

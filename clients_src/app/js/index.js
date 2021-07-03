@@ -38,8 +38,8 @@ flowEditor.graphcanvas.render_canvas_border = false;
 window.addEventListener("resize", function() { flowEditor.graphcanvas.resize(); } );
 
 //enable scripting
-LiteGraph.allow_scripts = true;
-flowEditor.graphcanvas.show_info = true;
+LiteGraph.allow_scripts = false;
+flowEditor.graphcanvas.show_info = false;
 flowEditor.graphcanvas.allow_searchbox = false;
 
 LiteGraph.registerNodeType(Blocks.ClickBlock.menu, Blocks.ClickBlock);
@@ -55,11 +55,13 @@ LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
 LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
+LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
 
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();
     flowEditor.graph.configure(JSON.parse(response.data.logic));
     //console.log(JSON.parse(response.data.logic));
+    flowEditor.graph.currentFlow = response.data;
     blockingLoader.hide();
     flowEditor.graph.start();
 }

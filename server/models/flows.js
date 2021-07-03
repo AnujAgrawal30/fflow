@@ -41,16 +41,27 @@ const FlowsSchema = new mongoose.Schema({
                 type: Date
             }
         },
-        incomingWebhook: {
+        incomingUserWebhook: {
+            active: {
+                type: Boolean,
+                default: false
+            },
             method: {
                 type: String,
                 enum: ['GET', 'POST', '*']
+            },
+            contentType: {
+                type: String,
+                enum: ['application/json']
             },
             secret: {
                 type: String,
                 get: key => decrypt(key),
                 set: key => encrypt(key)
             }
+        },
+        incomingRapydWebhook: {
+
         },
         status: {
             type: String,
@@ -60,18 +71,34 @@ const FlowsSchema = new mongoose.Schema({
         }
 
     },
-    {collection: 'flows', timestamps: true}
+    {collection: 'flows', timestamps: true, toJSON: { virtuals: true, getters: true } }
 );
+
+FlowsSchema.virtual('incomingUserWebhook.url').get(function () {
+    return process.env.SERVER_URL + 'hooks/flows/' + this._id;
+})
 
 FlowsSchema.plugin(publicFields, [
     "_id",
     "name",
     "description",
     "logic",
-    "nextCronEvent"
+    "nextCronEvent",
+    "incomingUserWebhook"
 ]);
 
 FlowsSchema.plugin(mongooseDelete, { overrideMethods: true });
+
+FlowsSchema.methods.refreshUserIncomingWebhook = function () {
+
+    const logic = JSON.parse(this.logic);
+
+    this.incomingUserWebhook.active =
+        this.incomingUserWebhook.method &&
+        this.incomingUserWebhook.contentType &&
+        !!logic.nodes.find(node => node.type === 'Network/Incoming Webhook');
+
+};
 
 FlowsSchema.methods.refreshSchedules = function () {
 

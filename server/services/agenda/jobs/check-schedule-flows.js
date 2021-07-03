@@ -19,7 +19,7 @@ module.exports = agenda => {
         utilities.logger.debug('Found flows', { tagLabel, number: flows.length });
 
         for(let f = 0; f < flows.length; f++) {
-            agenda.now('execute flow', { flowId: flows[f]._id, trigger: 'schedule' });
+            await agenda.now('execute flow', { flowId: flows[f]._id, trigger: 'schedule' });
         }
 
 

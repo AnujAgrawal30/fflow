@@ -16,11 +16,16 @@ module.exports = async (req, res) => {
         flow.logic = req.body.logic || flow.logic;
         flow.status = req.body.status || flow.status;
 
+        if(req.body.incomingUserWebhook)
+            flow.incomingUserWebhook = req.body.incomingUserWebhook;
+
+
         flow.refreshSchedules();
+        flow.refreshUserIncomingWebhook();
+
         flow.save();
 
-        res.resolve(flow);
-
+        return res.resolve(flow);
 
     } catch (error) {
 
