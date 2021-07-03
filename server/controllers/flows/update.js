@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
 
         flow.refreshSchedules();
         flow.refreshUserIncomingWebhook();
+        flow.refreshRapydIncomingWebhook();
 
         flow.save();
 

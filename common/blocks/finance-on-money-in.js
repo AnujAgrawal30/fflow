@@ -6,19 +6,16 @@ const debounce = require('debounce');
 
 class Wallet extends AbstractBlock {
 
-    static title = "Get Wallet";
-    static desc = "Get Wallet information";
-    static menu = "Finance/Get Wallet";
+    static title = "Detect Money in";
+    static desc = "Triggers an event when a new transaction enters an specific Wallet";
+    static menu = "Finance/Detect money in";
 
     constructor(props) {
 
         super(props);
 
-        this.addInput('trigger', LiteGraph.ACTION);
-
         this.addOutput('trigger', LiteGraph.EVENT);
-        this.addOutput('balance', 'number');
-        this.addOutput('currency', 'string');
+        this.addOutput('amount', 'number');
 
         this.addProperty('wallet');
 
@@ -69,16 +66,10 @@ class Wallet extends AbstractBlock {
     }
 
 
-    async onAction() {
-        if(!this.properties['wallet'])
-            return;
+    async triggerEvent(payment) {
 
-        const response = await this.graph.apiClient.Wallets.read(this.properties['wallet']._id).execute();
-
-        this.setOutputData(1, response.data.balance);
-        this.setOutputData(2, response.data.currency);
-
-        this.triggerSlot(0, { eventType: "getWallet", timestamp: new Date().getTime(), data: response.data });
+        this.setOutputData(1, payment.amount);
+        this.triggerSlot(0, { eventType: "getWallet", timestamp: new Date().getTime(), data: payment });
 
     }
 

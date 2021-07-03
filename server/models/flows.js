@@ -60,9 +60,16 @@ const FlowsSchema = new mongoose.Schema({
                 set: key => encrypt(key)
             }
         },
-        incomingRapydWebhook: {
-
-        },
+        incomingRapydWebhook: [{
+            relevantWallet: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Wallet'
+            },
+            relevantTransactionType: {
+                type: String,
+                enum: ['moneyIn']
+            }
+        }],
         status: {
             type: String,
             enum: ['inactive', 'active', 'running'],
@@ -97,6 +104,26 @@ FlowsSchema.methods.refreshUserIncomingWebhook = function () {
         this.incomingUserWebhook.method &&
         this.incomingUserWebhook.contentType &&
         !!logic.nodes.find(node => node.type === 'Network/Incoming Webhook');
+
+};
+
+FlowsSchema.methods.refreshRapydIncomingWebhook = function () {
+
+    const logic = JSON.parse(this.logic);
+
+    const nodes = logic.nodes.filter(node => node.type === 'Finance/Detect money in');
+
+    this.incomingRapydWebhook = [];
+
+    nodes.forEach(node => {
+
+        this.incomingRapydWebhook.push( {
+            relevantWallet: node.properties.wallet,
+            relevantTransactionType: 'moneyIn'
+        });
+
+    });
+
 
 };
 

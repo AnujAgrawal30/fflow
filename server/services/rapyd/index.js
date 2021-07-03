@@ -59,7 +59,9 @@ module.exports = class Rapyd {
                         '&sender_entity_type=' + senderEntityType),
             Beneficiaries: new RestInterface(this, '/v1/payouts/beneficiary', '/v1/payouts/beneficiary/{0}'),
             Bankwire: new RestInterface(this, '/v1/payouts', '/v1/payouts/{0}')
-        }
+        };
+
+        this.Payments = new RestInterface(this, null, '/v1/payments/{0}');
 
 
     };

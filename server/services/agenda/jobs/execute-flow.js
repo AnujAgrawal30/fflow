@@ -18,6 +18,7 @@ LiteGraph.registerNodeType(Blocks.TimeWeeklyBlock.menu, Blocks.TimeWeeklyBlock);
 LiteGraph.registerNodeType(Blocks.TimeDailyBlock.menu, Blocks.TimeDailyBlock);
 LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
 LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
+LiteGraph.registerNodeType(Blocks.OnMoneyInBlock.menu, Blocks.OnMoneyInBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
@@ -103,6 +104,20 @@ module.exports = agenda => {
 
                 }
 
+            }
+            else if(job.attrs.data.trigger === 'rapydWebhook') {
+
+                const entryNodes = graph.findNodesByType('Finance/Detect money in');
+
+                const entryNode = entryNodes.find(node => node.properties && job.attrs.data.walletId.equals(node.properties.wallet._id));
+
+                setTimeout(() => entryNode.triggerEvent(job.attrs.data.payment), 0);
+
+                await waitForCompletion(job, graph);
+
+            }
+            else {
+                return Promise.reject('Unknown trigger');
             }
 
             flow.lastExecution.completed = true;

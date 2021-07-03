@@ -8,5 +8,6 @@ module.exports.TimeDailyBlock = require('./time-daily');
 module.exports.WalletBlock = require('./finance-wallet');
 module.exports.TransferBlock = require('./finance-transfer');
 module.exports.BankwireBlock = require('./finance-bankwire');
+module.exports.OnMoneyInBlock = require('./finance-on-money-in');
 module.exports.NumberBlock = require('./utility-number');
 module.exports.NetworkIncomingWebhook = require('./network-incoming-webhook');

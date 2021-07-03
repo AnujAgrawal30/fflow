@@ -54,6 +54,8 @@ LiteGraph.registerNodeType(Blocks.TimeMonthlyBlock.menu, Blocks.TimeMonthlyBlock
 LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
 LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
+LiteGraph.registerNodeType(Blocks.OnMoneyInBlock.menu, Blocks.OnMoneyInBlock);
+
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
 
