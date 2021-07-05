@@ -48,6 +48,10 @@ module.exports = class ApiClient {
             Bankwire: new RestInterface(this, '/v1/money-out-bankwire'),
         };
 
+        this.Tools = {
+            SendEmailFromFlow: new RestInterface(this, '/v1/tools/send-email-from-flow')
+        };
+
     };
 
     setSession(session) {

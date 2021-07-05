@@ -1,0 +1,1 @@
+module.exports.sendEmailFromFlow = require('./send-email-from-flow');

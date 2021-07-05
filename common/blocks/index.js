@@ -12,3 +12,4 @@ module.exports.OnMoneyInBlock = require('./finance-on-money-in');
 module.exports.NumberBlock = require('./utility-number');
 module.exports.NetworkIncomingWebhook = require('./network-incoming-webhook');
 module.exports.UtilityOnce = require('./utility-once');
+module.exports.NotificationEmail = require('./notification-email');

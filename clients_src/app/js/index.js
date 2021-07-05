@@ -77,6 +77,9 @@ LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkInc
 
 LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
 
+LiteGraph.registerNodeType(Blocks.NotificationEmail.menu, Blocks.NotificationEmail);
+
+
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();
     flowEditor.graph.configure(JSON.parse(response.data.logic));
