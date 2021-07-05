@@ -7,7 +7,7 @@ class Modal {
 
     }
 
-    static Alert(type, message, title = 'IFTPT') {
+    static Alert(type, message, title = 'FFlow') {
 
         Swal.fire({
             icon: type,
@@ -22,7 +22,7 @@ class Modal {
 
         new Noty({
             type: type,
-            layout: 'topRight',
+            layout: 'bottomRight',
             text: message,
             timeout,
             theme: 'solarized'

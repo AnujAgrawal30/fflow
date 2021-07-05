@@ -23,14 +23,30 @@ const flowId = document.getElementById('main-script').getAttribute('data-flow-id
 window.flowEditor = new LiteGraph.Editor(
     "main",
     {
-        miniwindow:false,
-        onSave: async function () {
+        miniwindow: false,
+        onSave: async function (exit = false) {
             blockingLoader.show();
             const data = JSON.stringify( flowEditor.graph.serialize() );
             await apiClient.Flows.update(flowId, { logic: data }).execute();
             blockingLoader.hide();
-            Modal.Toast("success", "Flow saved!");
-        }
+
+            if(!exit)
+                Modal.Toast("success", "Flow saved!");
+            else
+                window.location.href = "/app/list-flows.html";
+        },
+        onFlowStatus: async function(status) {
+            blockingLoader.show();
+            const data = JSON.stringify( flowEditor.graph.serialize() );
+            await apiClient.Flows.update(flowId, { logic: data, status }).execute();
+            blockingLoader.hide();
+
+            if(status === 'active')
+                Modal.Toast("success", "The flow is now active, any events or schedules will be managed by FFlow servers now", 5000);
+            else if(status === 'inactive')
+                Modal.Toast("success", "The flow is now deactivated, no events or schedules will be process", 5000);
+        },
+        onExit: () => window.location.href = '/app/list-flows.html'
     }, apiClient);
 
 flowEditor.graphcanvas.render_canvas_border = false;
@@ -62,6 +78,7 @@ LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkInc
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();
     flowEditor.graph.configure(JSON.parse(response.data.logic));
+    document.getElementById('flow-title').innerText = response.data.name;
     //console.log(JSON.parse(response.data.logic));
     flowEditor.graph.currentFlow = response.data;
     blockingLoader.hide();

@@ -8,7 +8,6 @@ const UsersSchema = new mongoose.Schema({
 
         firstname: {
             type: String,
-            required: [true, i18n.__('FIELD_REQUIRED')],
             minlength: [2, i18n.__('STRING_AT_LEAST', { min: 2 })],
             maxlength: [120, i18n.__('STRING_AT_MUST', { min: 120 })],
         },
@@ -30,8 +29,7 @@ const UsersSchema = new mongoose.Schema({
         },
         birthday: {
             type: Date,
-            required: [true, i18n.__('FIELD_REQUIRED')],
-            set: v => moment(v, 'YYYY-MM-DD').toDate()
+            set: v => v ? moment(v, 'YYYY-MM-DD').toDate() : null
         },
         address: {
             type: String,
@@ -79,12 +77,14 @@ UsersSchema.plugin(publicFields, [
 
 UsersSchema.pre('validate', function (next) {
 
-    if(this.entityType === 'individual' && (!this.firstname || !this.surname))
-    {
+    if(this.entityType === 'individual' && !this.firstname)
         this.invalidate('firstname', i18n.__('FIELD_REQUIRED'));
+    if(this.entityType === 'individual' && !this.surname)
         this.invalidate('surname', i18n.__('FIELD_REQUIRED'));
-    }
-    else if(this.entityType === 'company' && !this.companyName)
+    if(this.entityType === 'individual' && !this.birthday)
+        this.invalidate('birthday', i18n.__('FIELD_REQUIRED'));
+
+    if(this.entityType === 'company' && !this.companyName)
         this.invalidate('companyName', i18n.__('FIELD_REQUIRED'));
 
 

@@ -22,7 +22,8 @@ const FlowsSchema = new mongoose.Schema({
         },
         logic: {
             type: String,
-            maxlength: 10000
+            maxlength: 10000,
+            default: "{}"
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
@@ -91,7 +92,8 @@ FlowsSchema.plugin(publicFields, [
     "description",
     "logic",
     "nextCronEvent",
-    "incomingUserWebhook"
+    "incomingUserWebhook",
+    "status"
 ]);
 
 FlowsSchema.plugin(mongooseDelete, { overrideMethods: true });

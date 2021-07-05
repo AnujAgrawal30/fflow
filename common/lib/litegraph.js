@@ -31,8 +31,8 @@ var LiteGraph = (global.LiteGraph = {
     NODE_DEFAULT_BGCOLOR: "#353535",
     NODE_DEFAULT_BOXCOLOR: "#666",
     NODE_DEFAULT_SHAPE: "box",
-    NODE_BOX_OUTLINE_COLOR: "#FFF",
-    DEFAULT_SHADOW_COLOR: "rgba(0,0,0,0.5)",
+    NODE_BOX_OUTLINE_COLOR: "#FFCE1C",
+    DEFAULT_SHADOW_COLOR: "rgba(0,0,0,0.3)",
     DEFAULT_GROUP_FONT: 24,
 
     WIDGET_BGCOLOR: "#222",
@@ -40,11 +40,11 @@ var LiteGraph = (global.LiteGraph = {
     WIDGET_TEXT_COLOR: "#DDD",
     WIDGET_SECONDARY_TEXT_COLOR: "#999",
 
-    LINK_COLOR: "#9A9",
-    EVENT_LINK_COLOR: "#A86",
-    CONNECTING_LINK_COLOR: "#AFA",
+    LINK_COLOR: "#419D78",
+    EVENT_LINK_COLOR: "#5148b1",
+    CONNECTING_LINK_COLOR: "#419D78",
 
-    MAX_NUMBER_OF_NODES: 1000, //avoid infinite loops
+    MAX_NUMBER_OF_NODES: 128, //avoid infinite loops
     DEFAULT_POSITION: [100, 100], //default node position
     VALID_SHAPES: ["default", "box", "round", "card"], //,"circle"
 
@@ -3362,6 +3362,8 @@ LGraphNode.prototype.computeSize = function (out) {
 
     size[1] += 6; //margin
 
+    //Spacer for help button
+    size[0] += 20;
     return size;
 };
 
@@ -3457,7 +3459,7 @@ LGraphNode.prototype.addWidget = function (type, name, value, callback, options)
     }
 
     if (!callback && !w.options.callback && !w.options.property) {
-        console.warn("LiteGraph addWidget(...) without a callback or property assigned");
+        //console.warn("LiteGraph addWidget(...) without a callback or property assigned");
     }
     if (type == "combo" && !w.options.values) {
         throw "LiteGraph addWidget('combo',...) requires to pass values in options: { values:['red','blue'] }";
@@ -5941,12 +5943,20 @@ LGraphCanvas.prototype.processMouseUp = function (e) {
         } else if (this.node_dragged) {
             //node being dragged?
             var node = this.node_dragged;
+
             if (
                 node &&
                 e.click_time < 300 &&
                 isInsideRectangle(e.canvasX, e.canvasY, node.pos[0], node.pos[1] - LiteGraph.NODE_TITLE_HEIGHT, LiteGraph.NODE_TITLE_HEIGHT, LiteGraph.NODE_TITLE_HEIGHT)
             ) {
                 node.collapse();
+            }
+            else if(
+                node &&
+                e.click_time < 300 &&
+                isInsideRectangle(e.canvasX, e.canvasY, node.pos[0] + node.size[0] - 17, node.pos[1] - LiteGraph.NODE_TITLE_HEIGHT, 15, LiteGraph.NODE_TITLE_HEIGHT)
+            ) {
+                this.showShowNodePanel(node);
             }
 
             this.dirty_canvas = true;
@@ -6381,6 +6391,9 @@ LGraphCanvas.prototype.checkDropItem = function (e) {
 };
 
 LGraphCanvas.prototype.processNodeDblClicked = function (n) {
+
+    return;
+
     if (this.onShowNodePanel) {
         this.onShowNodePanel(n);
     } else {
@@ -7349,7 +7362,7 @@ LGraphCanvas.prototype.drawNode = function (node, ctx) {
             node._collapsed_width = Math.min(
                 node.size[0],
                 ctx.measureText(title).width +
-                LiteGraph.NODE_TITLE_HEIGHT * 2
+                LiteGraph.NODE_TITLE_HEIGHT * 2 + 26
             ); //LiteGraph.NODE_COLLAPSED_WIDTH;
             size[0] = node._collapsed_width;
             size[1] = 0;
@@ -7618,7 +7631,7 @@ LGraphCanvas.prototype.drawNode = function (node, ctx) {
                 x = node._collapsed_width * 0.5;
                 y = -LiteGraph.NODE_TITLE_HEIGHT;
             }
-            ctx.fillStyle = "#686";
+            ctx.fillStyle = "#7367F0";
             ctx.beginPath();
             if (
                 slot.type === LiteGraph.EVENT ||
@@ -7643,7 +7656,7 @@ LGraphCanvas.prototype.drawNode = function (node, ctx) {
                 x = node._collapsed_width * 0.5;
                 y = 0;
             }
-            ctx.fillStyle = "#686";
+            ctx.fillStyle = "#7367F0";
             ctx.strokeStyle = "black";
             ctx.beginPath();
             if (
@@ -7882,7 +7895,7 @@ LGraphCanvas.prototype.drawNodeShape = function (
             if (low_quality)
                 ctx.fillRect(title_height * 0.5 - box_size * 0.5, title_height * -0.5 - box_size * 0.5, box_size, box_size);
             else {
-                ctx.beginPath();
+/*                ctx.beginPath();
                 ctx.arc(
                     title_height * 0.5,
                     title_height * -0.5,
@@ -7890,7 +7903,26 @@ LGraphCanvas.prototype.drawNodeShape = function (
                     0,
                     Math.PI * 2
                 );
+                ctx.fill();*/
+
+                //New collapse button
+                ctx.beginPath();
+                ctx.rect(title_height * 0.3, title_height * -0.5 - 2, 12, 4);
                 ctx.fill();
+
+
+                //console.log(size);
+                //Help button
+
+                ctx.beginPath();
+                ctx.fillStyle = '#4a4a4a'
+                ctx.arc(size[0] - 10, title_height * -0.5, 8, 0, 2 * Math.PI);
+                ctx.fill();
+
+                ctx.fillStyle = node.constructor.title_text_color || this.node_title_color;
+                ctx.font = "bold 10px Lato";
+                ctx.fillText("?", size[0] - 12, title_height * -0.4);
+
             }
         } else {
             if (low_quality) {
@@ -10362,9 +10394,10 @@ LGraphCanvas.prototype.showShowNodePanel = function (node) {
 
     function inner_refresh() {
         panel.content.innerHTML = ""; //clear
-        panel.addHTML("<span class='node_desc'>" + (node.desc || "") + "</span><span class='separator'></span>");
 
-        if (Object.keys(node.properties).length > 0) {
+        panel.addHTML("<span class='node_desc'>" + (node.constructor.desc || "") + "</span><span class='separator'></span>");
+
+/*        if (Object.keys(node.properties).length > 0) {
             panel.addHTML("<h3>Properties</h3>");
 
             for (var i in node.properties) {
@@ -10385,7 +10418,7 @@ LGraphCanvas.prototype.showShowNodePanel = function (node) {
             }
 
             panel.addSeparator();
-        }
+        }*/
 
 
         if (node.onShowCustomPanelInfo)
@@ -10722,7 +10755,7 @@ LGraphCanvas.prototype.getCanvasMenuOptions = function () {
                 has_submenu: true,
                 callback: LGraphCanvas.onMenuAdd
             },
-            {content: "Add Group", callback: LGraphCanvas.onGroupAdd}
+            //{content: "Add Group", callback: LGraphCanvas.onGroupAdd}
             //{content:"Collapse All", callback: LGraphCanvas.onMenuCollapseAll }
         ];
 
@@ -10752,7 +10785,7 @@ LGraphCanvas.prototype.getNodeMenuOptions = function (node) {
         options = node.getMenuOptions(this);
     } else {
         options = [
-            {
+/*            {
                 content: "Inputs",
                 has_submenu: true,
                 disabled: true,
@@ -10770,16 +10803,16 @@ LGraphCanvas.prototype.getNodeMenuOptions = function (node) {
                 has_submenu: true,
                 callback: LGraphCanvas.onShowMenuNodeProperties
             },
-            null,
+            null,*/
             {
                 content: "Title",
                 callback: LGraphCanvas.onShowPropertyEditor
             },
-            {
+            /*{
                 content: "Mode",
                 has_submenu: true,
                 callback: LGraphCanvas.onMenuNodeMode
-            },
+            },*/
             {
                 content: "Resize", callback: function () {
                     if (node.resizable)
@@ -10790,22 +10823,22 @@ LGraphCanvas.prototype.getNodeMenuOptions = function (node) {
                 content: "Collapse",
                 callback: LGraphCanvas.onMenuNodeCollapse
             },
-            {content: "Pin", callback: LGraphCanvas.onMenuNodePin},
+/*            {content: "Pin", callback: LGraphCanvas.onMenuNodePin},*/
             {
                 content: "Colors",
                 has_submenu: true,
                 callback: LGraphCanvas.onMenuNodeColors
             },
-            {
+/*            {
                 content: "Shapes",
                 has_submenu: true,
                 callback: LGraphCanvas.onMenuNodeShapes
             },
-            null
+            null*/
         ];
     }
 
-    if (node.onGetInputs) {
+    /*if (node.onGetInputs) {
         var inputs = node.onGetInputs();
         if (inputs && inputs.length) {
             options[0].disabled = false;
@@ -10839,7 +10872,7 @@ LGraphCanvas.prototype.getNodeMenuOptions = function (node) {
             content: "To Subgraph",
             callback: LGraphCanvas.onMenuNodeToSubgraph
         });
-
+*/
     options.push(null, {
         content: "Remove",
         disabled: !(node.removable !== false && !node.block_delete),

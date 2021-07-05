@@ -18,7 +18,7 @@ body {
 }
 
 h1 {
-  font-family: Lato, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 h2 {
@@ -33,6 +33,47 @@ h2 {
   color: #c15656;
   font-weight: 600;
   height: 15px;
+}
+
+.container {
+  position: relative;
+  margin: 10px 10%;
+}
+
+.section-title {
+  padding-bottom: 45px;
+  font-size: 50px;
+}
+
+.section-cta {
+  position: absolute;
+  font-weight: bold;
+  top: 0;
+  right: 0;
+  background: #9037ff;
+  color: #fff;
+  height: 50px;
+  line-height: 46px;
+  min-width: 200px;
+  border: 2px solid #9037ff;
+  padding: 0 26px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 0;
+  text-align: center;
+  margin-right: 8px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.section-cta:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #222;
 }
 
 #powered-by {
@@ -293,14 +334,14 @@ textarea {
 }
 
 .litegraph-editor h1 {
-  font-family: Lato, sans-serif;
+  font-family: Poppins, sans-serif;
   color: #ddd;
-  font-size: 28px;
+  font-size: 23px;
   padding-left: 10px;
-  /*text-shadow: 0 1px 1px #333, 0 -1px 1px #777;*/
   margin: 0;
-  font-weight: normal;
+  font-weight: bold;
 }
+
 
 .litegraph-editor h1 span {
   font-family: Lato, sans-serif;
@@ -466,4 +507,151 @@ textarea {
   color: white;
   font-family: 'Lato';
   resize: none;
+}
+
+table {
+  font-family: "Lato", sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table td, table th {
+  //border: 1px solid #ddd;
+  padding: 8px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+
+}
+
+table tr:nth-child(even){background-color: #414141;}
+
+table tr:hover {background-color: #2f2f2f;}
+
+.vanillajs-table-header {
+  td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #2b2b2b;
+    color: white;
+  }
+}
+
+#empty-state {
+
+  display: none;
+
+  text-align: center;
+
+  h1 {
+    font-size: 25px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  img {
+    height: 300px;
+  }
+}
+
+.dropdown {
+  z-index: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.dd-button {
+  display: inline-block;
+
+  cursor: pointer;
+  white-space: nowrap;
+
+  font-weight: bold;
+  background: #9037ff;
+  color: #fff;
+  height: 30px;
+  line-height: 7px;
+  min-width: 200px;
+  border: 2px solid #9037ff;
+  padding: 10px 30px 10px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 0;
+  text-align: center;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+
+
+}
+
+.dd-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+
+.dd-button:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #222;
+}
+
+
+.dd-input {
+  display: none;
+}
+
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #1d1d1d;
+  list-style-type: none;
+}
+
+.dd-input + .dd-menu {
+  display: none;
+}
+
+.dd-input:checked + .dd-menu {
+  display: block;
+}
+
+.dd-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dd-menu li:hover {
+  background-color: #1a1a1a;
+}
+
+.dd-menu li a {
+  display: block;
+  color: white;
+  margin: -10px -20px;
+  padding: 10px 20px;
+}
+
+.dd-menu li.divider{
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
 }

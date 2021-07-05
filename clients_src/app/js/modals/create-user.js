@@ -4,12 +4,13 @@ import 'intl-tel-input/build/css/intlTelInput.css';
 import intlTelInput from 'intl-tel-input';
 
 
-module.exports.show = async () => {
+module.exports.show = async (allowOutsideClick = true) => {
 
     let iti;
 
     return await Swal.fire({
         title: 'Registration',
+        allowOutsideClick,
         html: `<form id="new-user-form">
         <p>Are you a person or a business?</p>
       <input type="radio" id="personal-user" name="type" value="individual" checked>
@@ -17,6 +18,8 @@ module.exports.show = async () => {
       <input type="radio" id="company-user" name="type" value="company">
       <label for="company-user">Business</label>
       <hr />
+      
+      <input type="text" class="swal2-input" name="invitation-code" placeholder="invitation code">
       
       <input type="email" id="contact-email" class="swal2-input" name="email" placeholder="email">
       <label class="form-error" data-error="email"></label>
@@ -68,11 +71,9 @@ module.exports.show = async () => {
       </select>
       <label class="form-error" data-error="country"></label>
       
-      
-      
       </form>
     `,
-        confirmButtonText: 'Save Wallet',
+        confirmButtonText: 'Create new user',
         focusConfirm: false,
         didRender: () => {
 
@@ -108,11 +109,13 @@ module.exports.show = async () => {
         },
         preConfirm: async () => {
 
+
             blockingLoader.show();
 
             const formData = new FormData(Swal.getPopup().querySelector('#new-user-form'));
 
             const payload = {
+                invitationCode: formData.get('invitation-code'),
                 password: formData.get('password'),
                 repeatPassword: formData.get('repeatPassword'),
                 entityType: formData.get('type'),
@@ -124,7 +127,7 @@ module.exports.show = async () => {
                 country: formData.get('w-country'),
                 address: formData.get('w-address'),
                 city: formData.get('w-city'),
-                birthday: formData.get('birthday'),
+                birthday: formData.get('birthday') ? formData.get('birthday') : null,
             };
 
             Swal.getPopup()

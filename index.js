@@ -101,6 +101,7 @@ app.get('/app/edit-flow/:id', (req, res) => {
 
 
 app.use('/app', express.static('./public/app'));
+app.use('/', express.static('./public/site'));
 
 //Sets API helper response functions like, resolve, forbidden, etc. and the chains continues next().
 app.use(apiMiddleware);

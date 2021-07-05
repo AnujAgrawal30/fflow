@@ -25,6 +25,9 @@ module.exports = async (req, res) => {
             return res.forbidden(i18n.__('EMAIL_IS_NOT_UNIQUE'));
 
 
+        if(payload.invitationCode !== 'rapyd0001')
+            return res.forbidden(i18n.__('INVALID_INVITATION_CODE'));
+
         const user = new Users(payload);
 
         await user.setPassword(password);

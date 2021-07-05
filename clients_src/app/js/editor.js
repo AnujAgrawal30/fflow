@@ -5,7 +5,31 @@ function Editor(container_id, options, apiClient) {
     options = options || {};
 
     //fill container
-    let html = "<div class='header'><div class='tools tools-left'></div><div class='tools tools-right'></div></div>";
+    let html = `
+<div class='header'>
+    <div class='tools tools-left'>
+        <h1 id='flow-title'></h1>
+    </div>
+    <div class='tools tools-right'>
+        <label class="dropdown">
+        
+          <div class="dd-button">
+            options
+          </div>
+        
+          <input type="checkbox" class="dd-input" id="test">
+        
+          <ul class="dd-menu">
+            <li>Save</li>
+            <li>Save and Exit</li>
+            <li>Activate Flow</li>
+            <li>Deactivate Flow</li>
+            <li>Exit without saving</li>
+          </ul>
+          
+        </label>
+    </div>
+</div>`;
     html += "<div class='content'><div class='editor-area'><canvas class='graphcanvas' width='1000' height='500' tabindex=10></canvas></div></div>";
 
     const root = document.createElement("div");
@@ -26,13 +50,13 @@ function Editor(container_id, options, apiClient) {
         graphcanvas.draw(true);
     };
 
-    this.addToolsButton(
+/*    this.addToolsButton(
         "save_button",
         "Save",
         "lni-save",
         options.onSave.bind(this),
         ".tools-right"
-    );
+    );*/
 
 
     //append to DOM
@@ -43,6 +67,15 @@ function Editor(container_id, options, apiClient) {
     }
 
     graphcanvas.resize();
+
+    const menuItems = root.querySelector('ul.dd-menu').querySelectorAll('li');
+
+    menuItems[0].addEventListener('click', () => options.onSave());
+    menuItems[1].addEventListener('click', () => options.onSave(true));
+    menuItems[2].addEventListener('click', () => options.onFlowStatus('active'));
+    menuItems[3].addEventListener('click', () => options.onFlowStatus('inactive'));
+    menuItems[4].addEventListener('click', () => options.onExit());
+
 }
 
 Editor.prototype.addToolsButton = function( id, name, iconClass, callback, container ) {

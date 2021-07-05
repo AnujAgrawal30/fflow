@@ -12,6 +12,7 @@
     "bcryptjs": "^2.4.3",
     "bic-from-iban": "^1.0.0",
     "body-parser": "^1.19.0",
+    "bootstrap": "^3.4.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "cron-parser": "^3.5.0",
@@ -44,8 +45,10 @@
     "parcel": "^2.0.0-beta.3.1"
   },
   "scripts": {
-    "dev": "parcel ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html --dist-dir ./public/app --public-url /app",
-    "buildApp": "parcel build ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html --dist-dir ./public/app --public-url /app",
+    "devApp": "parcel ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/registration.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
+    "devSite": "parcel ./clients_src/site/index.html --dist-dir ./public/site --public-url /",
+    "buildApp": "parcel build ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
+    "buildSite": "parcel build ./clients_src/site/index.html --dist-dir ./public/site --public-url /",
     "server": "node ./server/index.js"
   },
   "author": "",
