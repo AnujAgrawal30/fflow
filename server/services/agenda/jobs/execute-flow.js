@@ -21,7 +21,8 @@ LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
 LiteGraph.registerNodeType(Blocks.OnMoneyInBlock.menu, Blocks.OnMoneyInBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
-LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
+LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
+LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
 
 
 const wait = async (time) => new Promise(resolve => setTimeout(resolve, time));
@@ -122,6 +123,9 @@ module.exports = agenda => {
 
             flow.lastExecution.completed = true;
             flow.lastExecution.date = new Date();
+
+            flow.logic = JSON.stringify(graph.serialize());
+
             await flow.save();
 
             utilities.logger.debug("Flow completed", { tagLabel });

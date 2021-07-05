@@ -75,6 +75,8 @@ LiteGraph.registerNodeType(Blocks.OnMoneyInBlock.menu, Blocks.OnMoneyInBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.NetworkIncomingWebhook.menu, Blocks.NetworkIncomingWebhook);
 
+LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
+
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();
     flowEditor.graph.configure(JSON.parse(response.data.logic));
