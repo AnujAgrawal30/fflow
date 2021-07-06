@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "fflow",
+      "script": "./index.js",
+      "watch": false,
+      "wait_ready": true
+    },
+    {
+      "name": "fflowworker",
+      "script": "./worker.js",
+      "watch": false,
+      "wait_ready": true,
+      "kill_timeout" : 30000
+    }
+  ]
+}

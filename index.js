@@ -159,6 +159,10 @@ async function startAPIServer(db) {
         if (process.env.ENABLE_RESTART_NOTIFICATION === 'true')
             utilities.notifier.send('API server running!', {env: process.env.ENV}, 'low');
 
+        try {
+            process.send('ready');
+        } catch (e) {}
+
     });
 
 }
