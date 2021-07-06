@@ -13,6 +13,7 @@ const { RateLimiterMongo }      = require('rate-limiter-flexible');
 const path                      = require('path');
 const agenda                    = require('./server/services/agenda');
 const Agendash                  = require('agendash');
+const {exec}                    = require('child_process');
 
 const Rapyd = require('./server/services/rapyd');
 
@@ -23,7 +24,15 @@ global.api = {
 global.rapydClient = new Rapyd(process.env.RAPYD_CLIENT_PUBLIC, process.env.RAPYD_CLIENT_SECRET, process.env.ENV);
 
 global.utilities = require('@growishpay/service-utilities');
-global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> process.exit());
+global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> {
+
+    exec('npm run buildApp', (err, stdout, stderr) => {
+        exec('npm run buildSite', (err, stdout, stderr) => {
+            process.exit();
+        });
+    });
+
+});
 
 utilities.notifier.init(process.env.ENV, process.env.SLACK_BOT_HOOK);
 
