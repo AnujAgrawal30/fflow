@@ -13,3 +13,7 @@ module.exports.NumberBlock = require('./utility-number');
 module.exports.NetworkIncomingWebhook = require('./network-incoming-webhook');
 module.exports.UtilityOnce = require('./utility-once');
 module.exports.NotificationEmail = require('./notification-email');
+module.exports.MathAdd = require('./math-add');
+module.exports.MathSubstract = require('./math-subtract');
+module.exports.MathMultiply = require('./math-multiply');
+module.exports.MathDivide = require('./math-divide');

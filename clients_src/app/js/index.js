@@ -79,6 +79,11 @@ LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
 
 LiteGraph.registerNodeType(Blocks.NotificationEmail.menu, Blocks.NotificationEmail);
 
+LiteGraph.registerNodeType(Blocks.MathAdd.menu, Blocks.MathAdd);
+LiteGraph.registerNodeType(Blocks.MathSubstract.menu, Blocks.MathSubstract);
+LiteGraph.registerNodeType(Blocks.MathMultiply.menu, Blocks.MathMultiply);
+LiteGraph.registerNodeType(Blocks.MathDivide.menu, Blocks.MathDivide);
+
 
 loadFlow = async () => {
     const response = await apiClient.Flows.read(flowId).execute();

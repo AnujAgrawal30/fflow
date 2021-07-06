@@ -23,7 +23,10 @@ LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
-
+LiteGraph.registerNodeType(Blocks.MathAdd.menu, Blocks.MathAdd);
+LiteGraph.registerNodeType(Blocks.MathSubstract.menu, Blocks.MathSubstract);
+LiteGraph.registerNodeType(Blocks.MathMultiply.menu, Blocks.MathMultiply);
+LiteGraph.registerNodeType(Blocks.MathDivide.menu, Blocks.MathDivide);
 
 const wait = async (time) => new Promise(resolve => setTimeout(resolve, time));
 
