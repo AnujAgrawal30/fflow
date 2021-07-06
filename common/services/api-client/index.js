@@ -40,6 +40,7 @@ module.exports = class ApiClient {
         };
         this.Flows = new RestInterface(this, '/v1/flows', '/v1/flows/{0}', '/v1/flows/{0}', '/v1/flows', '/v1/flows/{0}');
         this.Wallets = new RestInterface(this, '/v1/wallets', '/v1/wallets/{0}', null, '/v1/wallets');
+        this.RPCGetPublicWallet = new RestInterface(this, null, '/v1/rpc-public-wallet/{0}');
         this.Checkout = new RestInterface(this, '/v1/checkout');
         this.Transfers = new RestInterface(this, '/v1/transfers');
 
@@ -51,6 +52,8 @@ module.exports = class ApiClient {
         this.Tools = {
             SendEmailFromFlow: new RestInterface(this, '/v1/tools/send-email-from-flow')
         };
+
+        this.Checkout = new RestInterface(this, '/v1/checkout');
 
     };
 

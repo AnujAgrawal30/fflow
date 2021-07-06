@@ -27,6 +27,7 @@
     "i18n": "^0.13.3",
     "iban": "0.0.14",
     "intl-tel-input": "^17.0.13",
+    "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
@@ -45,9 +46,9 @@
     "parcel": "^2.0.0-beta.3.1"
   },
   "scripts": {
-    "devApp": "parcel ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/registration.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
+    "devApp": "parcel ./clients_src/app/wallet-checkout.html ./clients_src/app/thank-you.html ./clients_src/app/ko.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/registration.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
     "devSite": "parcel ./clients_src/site/index.html --dist-dir ./public/site --public-url /",
-    "buildApp": "parcel build ./clients_src/app/index.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
+    "buildApp": "parcel build ./clients_src/app/wallet-checkout.html ./clients_src/app/thank-you.html ./clients_src/app/ko.html ./clients_src/app/list-flows.html ./clients_src/app/edit-flow.html ./clients_src/app/login.html --dist-dir ./public/app --public-url /app",
     "buildSite": "parcel build ./clients_src/site/index.html --dist-dir ./public/site --public-url /",
     "server": "node ./server/index.js"
   },

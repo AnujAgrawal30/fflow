@@ -58,7 +58,7 @@ const WalletsSchema = new mongoose.Schema({
             email: {
                 type: String,
                 required: [true, i18n.__('FIELD_REQUIRED')],
-                validate: [ validator.isEmail, i18n.__('INVALID_EMAIL')]
+                validate: [validator.isEmail, i18n.__('INVALID_EMAIL')]
             },
             firstname: {
                 type: String,
@@ -119,30 +119,24 @@ const WalletsSchema = new mongoose.Schema({
         }
 
     },
-    {collection: 'wallets', timestamps: true}
+    {collection: 'wallets', timestamps: true, toJSON: { virtuals: true, getters: true }}
 );
 
 WalletsSchema.plugin(publicFields, [
-    "_id", "meta", "contact", "type", "kyc", "balance", "currency"
+    "_id", "meta", "contact", "type", "kyc", "balance", "currency", "checkoutURL"
 ]);
 
 WalletsSchema.plugin(mongooseDelete, {overrideMethods: true});
 
 WalletsSchema.pre('validate', function (next) {
 
-    if(this.type === 'person' && !this.contact.firstname)
-    {
+    if (this.type === 'person' && !this.contact.firstname) {
         this.invalidate('contact.firstname', i18n.__('FIELD_REQUIRED'));
-    }
-    else if(this.type === 'person' && !this.contact.surname)
-    {
+    } else if (this.type === 'person' && !this.contact.surname) {
         this.invalidate('contact.surname', i18n.__('FIELD_REQUIRED'));
-    }
-    else if(this.type === 'person' && !this.contact.birthday)
-    {
+    } else if (this.type === 'person' && !this.contact.birthday) {
         this.invalidate('contact.birthday', i18n.__('FIELD_REQUIRED'));
-    }
-    else if(this.type === 'company' && !this.contact.companyName)
+    } else if (this.type === 'company' && !this.contact.companyName)
         this.invalidate('contact.companyName', i18n.__('FIELD_REQUIRED'));
 
 
@@ -150,9 +144,13 @@ WalletsSchema.pre('validate', function (next) {
 
 });
 
+WalletsSchema.virtual('checkoutURL').get(function () {
+    return api.config.wallets.checkoutURLTpl.replace('{walletId}', this._id)
+});
+
 WalletsSchema.methods.sync = function (payload) {
 
-    const account = payload.accounts ? payload.accounts.find(el=> el.currency === this.currency) : null;
+    const account = payload.accounts ? payload.accounts.find(el => el.currency === this.currency) : null;
 
     this.balance = account ? account.balance : 0;
 

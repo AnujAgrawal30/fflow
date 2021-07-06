@@ -98,6 +98,9 @@ app.get('/app/edit-flow/:id', (req, res) => {
     res.render('edit-flow.html', { id: req.params.id });
 });
 
+app.get('/app/checkout/:id', (req, res) => {
+    res.render('wallet-checkout.html', { id: req.params.id });
+});
 
 
 app.use('/app', express.static('./public/app'));
