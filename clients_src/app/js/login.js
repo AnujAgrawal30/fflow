@@ -12,7 +12,7 @@ window.apiClient = new ApiClient('development', 'FE', {
 
 async function go() {
     await require('../js/modals/login').show(false);
-    window.location.href = "/app/";
+    window.location.href = "/app/list-flows.html";
 }
 
 go();
