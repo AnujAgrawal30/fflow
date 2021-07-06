@@ -1,16 +1,16 @@
 # FFlow.ninja
-## Become a Financial Flow Ninja!
+### Become a Financial Flow Ninja!
 
 **An entry for the Formula 0001: Rapyd Fintech Grand Prix**
 
 With ❤ From Milan 🍕, By Eng. Domingo Lupo
 
-### What it is?
+## What it is?
 FFlow.ninja is a visual editor for creating financial flows. 
 It works by dragging and dropping blocks and then connecting them to create 
 a business logic, by describing the process rather than coding it.
 
-### Why?
+## Why?
 Working for almost a decade in fintech I realize that no financial flow 
 in the early stages of design is made by developers, instead is 
 conceptualize by non-technical profiles, like business people, marketing, 
@@ -20,16 +20,16 @@ sales, etc. After the business logic is set, then developers translate
 FFlow works by converting *the idea* into an application without having 
 to write code relying on Visual Scripting and the Rapyd API.
 
-### Marketing presentation
+## Marketing presentation
 insert video here
 
-### Pitch 
+## Pitch 
 insert video here
 
-### Demo/Tutorial
+## Demo/Tutorial
 insert video here
 
-### Tech Stack
+## Tech Stack
 - NodeJS
 - ExpressJS
 - MongoDB
@@ -38,11 +38,12 @@ insert video here
 - **Rapyd API Node SDK** (Made from scratch for this project)
 - PM2
 
+![High level overview](https://fflow.ninja/_/tech.png)
 
-insert image here
+
 
 ### Website (Private Alpha)
-[Link](htts://fflow.ninja)
+[htts://fflow.ninja](htts://fflow.ninja)
 
 You can use a demo account:
 
@@ -55,7 +56,7 @@ Or you can create a new account using the **invitation code**: **rapyd0001**
 **Disclaimer: This is an alpha build, there some bugs I'm still working on, so be patience ✌**
 
 
-### Run it locally
+## Run it locally
 
 - Pull the repo
 - npm i
