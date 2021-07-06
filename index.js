@@ -34,6 +34,7 @@ global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> {
 
 });
 
+
 utilities.notifier.init(process.env.ENV, process.env.SLACK_BOT_HOOK);
 
 const dbConn = require('./server/utils/db');
