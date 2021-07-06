@@ -30,9 +30,9 @@ module.exports = async (req, res) => {
             currency: wallet.currency,
             country: req.body.country,
             ewallet: wallet.rapydId,
-            //complete_checkout_url: api.config.wallets.thankYouPage,
-            //complete_payment_url: api.config.wallets.thankYouPage,
-            //cancel_checkout_url: api.config.wallets.koPage
+            complete_checkout_url: api.config.wallets.thankYouPage,
+            complete_payment_url: api.config.wallets.thankYouPage,
+            cancel_checkout_url: api.config.wallets.koPage
         }).execute();
 
         res.resolve({
