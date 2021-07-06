@@ -50,7 +50,7 @@ async function go() {
     }
 
     else {
-        document.getElementById('#empty-state').style.display = 'block';
+        document.getElementById('empty-state').style.display = 'block';
     }
 
 

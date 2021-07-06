@@ -97,7 +97,7 @@ module.exports = class ApiClient {
             if (!response.data || response.data.error)
                 return Promise.reject();
 
-            if (this.end === 'FE' && endpoint === '/v1/auth/login' && method === 'POST') {
+            if (this.end === 'FE' && method === 'POST' && (endpoint === '/v1/auth/login' || endpoint === '/v1/users') ) {
                 this.setSession(response.data.data);
             } else if (this.end === 'FE' && endpoint === '/v1/auth/logout' && method === 'POST') {
                 this.setSession(null);
