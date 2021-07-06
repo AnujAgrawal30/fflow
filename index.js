@@ -115,6 +115,7 @@ app.get('/app/checkout/:id', (req, res) => {
 
 app.use('/app', express.static('./public/app'));
 app.use('/', express.static('./public/site'));
+app.use('/_', express.static('./_'));
 
 //Sets API helper response functions like, resolve, forbidden, etc. and the chains continues next().
 app.use(apiMiddleware);
