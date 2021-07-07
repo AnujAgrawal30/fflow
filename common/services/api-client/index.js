@@ -28,6 +28,7 @@ module.exports = class ApiClient {
 
         this.end = end;
 
+        this.global401ErrorManager = options && options.global401ErrorManager ? options.global401ErrorManager : null;
         this.global403ErrorManager = options && options.global403ErrorManager ? options.global403ErrorManager : null;
         this.global500ErrorManager = options && options.global500ErrorManager ? options.global500ErrorManager : null;
 
@@ -107,6 +108,12 @@ module.exports = class ApiClient {
         } catch (error) {
 
             this.runningRequests--;
+
+            if(error.response.status === 401 && this.global401ErrorManager) {
+
+                return this.global401ErrorManager(()=> me.makeRequest(endpoint, method, payload, isPublic));
+
+            }
 
             error.response.status === 403 && this.global403ErrorManager && this.global403ErrorManager(error.response.data);
             error.response.status === 500 && this.global500ErrorManager && this.global500ErrorManager();

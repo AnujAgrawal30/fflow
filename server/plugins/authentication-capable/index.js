@@ -7,9 +7,9 @@ const otp = require('./otp');
 const tagLabel = 'authenticationCapablePlugin';
 
 const rounds = 10;
-//const defaultSessionDuration = 30 * 24 * 3600; //30 days in seconds
+const defaultSessionDuration = 30 * 24 * 3600; //30 days in seconds
 //const defaultSessionDuration = 15 * 60; //15 minutes in seconds
-const defaultSessionDuration = 24 * 3600; //1 day in seconds
+//const defaultSessionDuration = 24 * 3600; //1 day in seconds
 const passwordStrengthRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@\.#\$%\^&\*])(?=.{8,})/gm;
 const resetPasswordProcessDuration = 15 * 60;
 

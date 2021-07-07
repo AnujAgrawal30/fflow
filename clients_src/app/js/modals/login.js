@@ -4,8 +4,6 @@ const blockingLoader = require('../../js/blocking-loader');
 
 module.exports.show = async (allowOutsideClick = true) => {
 
-    let iti;
-
     return await Swal.fire({
         title: 'Login',
         allowOutsideClick,
