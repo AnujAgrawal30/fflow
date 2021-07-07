@@ -33,7 +33,7 @@ class Branch extends AbstractBlock {
             "",
             "A equals B",
             selectedOperator => this.properties['operator'] = selectedOperator,
-            { values: ['A equals B', 'A Lower than B', 'A greater than B', 'A is greater than or equal to B', 'A is lower than or equal B', 'A is contained in B']} );
+            { values: ['A equals B', 'A lower than B', 'A greater than B', 'A is greater than or equal to B', 'A is lower than or equal B', 'A is contained in B']} );
 
 
         this.size = [280, 130];
@@ -41,18 +41,19 @@ class Branch extends AbstractBlock {
 
     onAction (action, event) {
 
+
         const a = this.getInputData(1);
         const b = this.getInputData(2);
 
-        if(this.properties.operator === 'A equals B' && a === b)
+        if(this.properties.operator === 'A equals B' && parseFloat(a) === parseFloat(b))
             this.triggerSlot(0, event);
-        else if(this.properties.operator === 'A Lower than B' && a < b)
+        else if(this.properties.operator === 'A lower than B' && parseFloat(a) < parseFloat(b))
             this.triggerSlot(0, event);
-        else if(this.properties.operator === 'A greater than B' && a > b)
+        else if(this.properties.operator === 'A greater than B' && parseFloat(a) > parseFloat(b))
             this.triggerSlot(0, event);
-        else if(this.properties.operator === 'A is greater than or equal to B' && a >= b)
+        else if(this.properties.operator === 'A is greater than or equal to B' && parseFloat(a) >= parseFloat(b))
             this.triggerSlot(0, event);
-        else if(this.properties.operator === 'A is lower than or equal B' && a <= b)
+        else if(this.properties.operator === 'A is lower than or equal B' && parseFloat(a) <= parseFloat(b))
             this.triggerSlot(0, event);
         else if(this.properties.operator === 'A is contained in B' && String(a).includes(b))
             this.triggerSlot(0, event);
