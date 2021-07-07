@@ -27,7 +27,7 @@ to write code relying on Visual Scripting and the Rapyd API.
 
 
 ## Demo/Tutorial
-insert video here
+[![Technical demo video](https://img.youtube.com/vi/l2OQz5th8jY/0.jpg)](https://www.youtube.com/watch?v=l2OQz5th8jY)
 
 ## Tech Stack
 - NodeJS
