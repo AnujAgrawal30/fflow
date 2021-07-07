@@ -13,20 +13,31 @@ const tagLabel = 'executeFlowsJob';
 LiteGraph.registerNodeType(Blocks.ClickBlock.menu, Blocks.ClickBlock);
 LiteGraph.registerNodeType(Blocks.LogOnTriggerBlock.menu, Blocks.LogOnTriggerBlock);
 LiteGraph.registerNodeType(Blocks.ProbeBlock.menu, Blocks.ProbeBlock);
+
 LiteGraph.registerNodeType(Blocks.BranchBlock.menu, Blocks.BranchBlock);
+
+LiteGraph.registerNodeType(Blocks.TimeMonthlyBlock.menu, Blocks.TimeMonthlyBlock);
 LiteGraph.registerNodeType(Blocks.TimeWeeklyBlock.menu, Blocks.TimeWeeklyBlock);
 LiteGraph.registerNodeType(Blocks.TimeDailyBlock.menu, Blocks.TimeDailyBlock);
+
 LiteGraph.registerNodeType(Blocks.WalletBlock.menu, Blocks.WalletBlock);
 LiteGraph.registerNodeType(Blocks.TransferBlock.menu, Blocks.TransferBlock);
 LiteGraph.registerNodeType(Blocks.OnMoneyInBlock.menu, Blocks.OnMoneyInBlock);
 LiteGraph.registerNodeType(Blocks.BankwireBlock.menu, Blocks.BankwireBlock);
+
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
 LiteGraph.registerNodeType(Blocks.NumberBlock.menu, Blocks.NumberBlock);
+
 LiteGraph.registerNodeType(Blocks.UtilityOnce.menu, Blocks.UtilityOnce);
+
 LiteGraph.registerNodeType(Blocks.MathAdd.menu, Blocks.MathAdd);
 LiteGraph.registerNodeType(Blocks.MathSubstract.menu, Blocks.MathSubstract);
 LiteGraph.registerNodeType(Blocks.MathMultiply.menu, Blocks.MathMultiply);
 LiteGraph.registerNodeType(Blocks.MathDivide.menu, Blocks.MathDivide);
+
+LiteGraph.registerNodeType(Blocks.NotificationEmail.menu, Blocks.NotificationEmail);
+
+
 
 const wait = async (time) => new Promise(resolve => setTimeout(resolve, time));
 
