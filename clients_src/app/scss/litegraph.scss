@@ -266,7 +266,29 @@
   min-height: 100px;
   display: inline-block;
   color: #AAA;
+  padding: 25px 10px;
   /*background-color: black;*/
+
+  input[type="text"] {
+    background: transparent;
+    border: 1px solid #161616;
+    color: white;
+    padding: 5px 10px;
+    font-family: 'Lato', sans-serif;
+    width: 265px;
+    border-radius: 15px;
+  }
+
+  input[type="text"]:focus-visible {
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+
 }
 
 .litegraph .dialog .dialog-content h3 {
@@ -293,7 +315,7 @@
 .litegraph .dialog .node_desc {
   opacity: 0.5;
   display: block;
-  margin: 10px;
+  //margin: 10px;
 }
 
 .litegraph .dialog .separator {

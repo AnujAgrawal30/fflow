@@ -50,15 +50,6 @@ function Editor(container_id, options, apiClient) {
         graphcanvas.draw(true);
     };
 
-/*    this.addToolsButton(
-        "save_button",
-        "Save",
-        "lni-save",
-        options.onSave.bind(this),
-        ".tools-right"
-    );*/
-
-
     //append to DOM
     const parent = document.getElementById(container_id);
 
@@ -78,26 +69,5 @@ function Editor(container_id, options, apiClient) {
 
 }
 
-Editor.prototype.addToolsButton = function( id, name, iconClass, callback, container ) {
-    if (!container) {
-        container = ".tools";
-    }
-
-    const button = this.createButton(name, iconClass, callback);
-    button.id = id;
-    this.root.querySelector(container).appendChild(button);
-};
-
-Editor.prototype.createButton = function(name, iconClass, callback) {
-    const button = document.createElement("button");
-    if (iconClass) {
-        button.innerHTML = "<i class=\"lni " + iconClass + "\"></i> ";
-    }
-    button.classList.add("btn");
-    button.innerHTML += name;
-    if(callback)
-        button.addEventListener("click", callback );
-    return button;
-};
 
 module.exports = Editor;

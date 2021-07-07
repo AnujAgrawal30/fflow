@@ -10397,39 +10397,9 @@ LGraphCanvas.prototype.showShowNodePanel = function (node) {
 
         panel.addHTML("<span class='node_desc'>" + (node.constructor.desc || "") + "</span><span class='separator'></span>");
 
-/*        if (Object.keys(node.properties).length > 0) {
-            panel.addHTML("<h3>Properties</h3>");
-
-            for (var i in node.properties) {
-                var value = node.properties[i];
-                var info = node.getPropertyInfo(i);
-                var type = info.type || "string";
-
-                //in case the user wants control over the side panel widget
-                if (node.onAddPropertyToPanel && node.onAddPropertyToPanel(i, panel))
-                    continue;
-
-                panel.addWidget(info.widget || info.type, i, value, info, function (name, value) {
-                    graphcanvas.graph.beforeChange(node);
-                    node.setProperty(name, value);
-                    graphcanvas.graph.afterChange();
-                    graphcanvas.dirty_canvas = true;
-                });
-            }
-
-            panel.addSeparator();
-        }*/
-
-
         if (node.onShowCustomPanelInfo)
             node.onShowCustomPanelInfo(panel);
 
-        /*
-            panel.addHTML("<h3>Connections</h3>");
-            var connection_containers = panel.addHTML("<div class='inputs connections_side'></div><div class='outputs connections_side'></div>","connections");
-            var inputs = connection_containers.querySelector(".inputs");
-            var outputs = connection_containers.querySelector(".outputs");
-            */
 
         panel.addButton("Delete", function () {
             if (node.block_delete)

@@ -82,6 +82,23 @@ class Wallet extends AbstractBlock {
 
     }
 
+    onShowCustomPanelInfo(panel) {
+
+        if(!this.properties['wallet'])
+            return;
+
+
+        panel.addHTML('<p><strong>Title</strong>: ' + this.properties['wallet'].meta.title + '</p>');
+        panel.addHTML('<p><strong>Description</strong>: ' + (this.properties['wallet'].meta.description || "N/A") + '</p>');
+        panel.addHTML(
+`<p>
+    <strong>Checkout URL <a href="\` + this.properties['wallet'].checkoutURL + \`" target="_blank"><i class="lni lni-link"></i></a></strong> :
+        <input type="text" readonly="readonly" value="` + this.properties['wallet'].checkoutURL + `"/>
+</p>`);
+
+
+    }
+
 }
 
 module.exports = Wallet;
