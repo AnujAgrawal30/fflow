@@ -26,7 +26,9 @@ global.rapydClient = new Rapyd(process.env.RAPYD_CLIENT_PUBLIC, process.env.RAPY
 global.utilities = require('@growishpay/service-utilities');
 global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> {
 
+    utilities.logger.info("Building App", { tagLabel });
     exec('npm run buildApp', (err, stdout, stderr) => {
+        utilities.logger.info("Building Site", { tagLabel });
         exec('npm run buildSite', (err, stdout, stderr) => {
             process.exit();
         });
