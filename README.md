@@ -21,10 +21,9 @@ FFlow works by converting *the idea* into an application without having
 to write code relying on Visual Scripting and the Rapyd API.
 
 ## Marketing presentation
-insert video here
 
-## Pitch 
-insert video here
+[![VIDEO](https://fflow.ninja/_/video-preview.gif)](https://www.youtube.com/watch?v=W-yU4j65Ee8E)
+
 
 ## Demo/Tutorial
 insert video here
