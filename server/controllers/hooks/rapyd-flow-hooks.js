@@ -2,11 +2,13 @@ const Wallets = require('../../models/wallets');
 const Flows = require('../../models/flows');
 const agenda = require('../../services/agenda');
 
-const tagLabel = 'controllerName';
+const tagLabel = 'rapydHook';
 
 module.exports = async (req, res) => {
 
     try {
+
+        utilities.logger.debug("New Rapyd hook", { tagLabel, body: req.body });
 
         if(!req.body.type || req.body.type !== 'PAYMENT_SUCCEEDED')
             return res.resolve();
