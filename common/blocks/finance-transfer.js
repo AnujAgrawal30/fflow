@@ -140,24 +140,26 @@ class Wallet extends AbstractBlock {
 
     async onAction() {
 
-        if(!this.properties['debitedWallet'] || !this.properties['creditedWallet'])
-            return this.graph.logger.error("Missing debited wallet and/or credited wallet", { tagLabel: this.constructor.menu });
+        setTimeout(async ()=>{
+            if(!this.properties['debitedWallet'] || !this.properties['creditedWallet'])
+                return this.graph.logger.error("Missing debited wallet and/or credited wallet", { tagLabel: this.constructor.menu });
 
-        const amount = this.getInputData(1) === undefined ? this.selectedAmountWidget.value : parseFloat(this.getInputData(1));
-
-
-        if(typeof amount !=='number' || amount <= 0)
-            return this.graph.logger.error("Input amount is not valid!", { tagLabel: this.constructor.menu, amount });
+            const amount = this.getInputData(1) === undefined ? this.selectedAmountWidget.value : parseFloat(this.getInputData(1));
 
 
-        const response = await this.graph.apiClient.Transfers.create({
-            debitedWallet: this.properties['debitedWallet']._id,
-            creditedWallet: this.properties['creditedWallet']._id,
-            amount: Math.round(amount * 100) / 100
-        }).execute();
+            if(typeof amount !=='number' || amount <= 0)
+                return this.graph.logger.error("Input amount is not valid!", { tagLabel: this.constructor.menu, amount });
 
-        this.graph.logger.info("Transaction between wallets completed!", { tagLabel: this.constructor.menu });
-        this.triggerSlot(0, { timestamp: new Date().getTime(), data: response.data });
+
+            const response = await this.graph.apiClient.Transfers.create({
+                debitedWallet: this.properties['debitedWallet']._id,
+                creditedWallet: this.properties['creditedWallet']._id,
+                amount: Math.round(amount * 100) / 100
+            }).execute();
+
+            this.graph.logger.info("Transaction between wallets completed!", { tagLabel: this.constructor.menu });
+            this.triggerSlot(0, { timestamp: new Date().getTime(), data: response.data });
+        },0);
 
 
     }
