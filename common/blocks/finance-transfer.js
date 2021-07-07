@@ -147,7 +147,7 @@ class Wallet extends AbstractBlock {
         const response = await this.graph.apiClient.Transfers.create({
             debitedWallet: this.properties['debitedWallet']._id,
             creditedWallet: this.properties['creditedWallet']._id,
-            amount: Math.round((amount + Number.EPSILON) * 100) / 100
+            amount: Math.round(amount * 100) / 100
         }).execute();
 
         this.triggerSlot(0, { timestamp: new Date().getTime(), data: response.data });
