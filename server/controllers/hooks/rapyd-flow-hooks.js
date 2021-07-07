@@ -23,7 +23,10 @@ module.exports = async (req, res) => {
         if(!wallet)
             return res.resolve();
 
-        const flow = await Flows.findOne( { 'incomingRapydWebhook.relevantWallet': wallet._id, 'incomingRapydWebhook.relevantTransactionType': 'moneyIn' });
+        const flow = await Flows.findOne( {
+            'incomingRapydWebhook.relevantWallet': wallet._id,
+            'incomingRapydWebhook.relevantTransactionType': 'moneyIn',
+            status: 'active' });
 
         if(!flow)
             return res.resolve();

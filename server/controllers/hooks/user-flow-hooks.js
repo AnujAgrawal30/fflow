@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 
     try {
 
-        const flow = await Flows.findOne({ _id: req.params.flowId });
+        const flow = await Flows.findOne({ _id: req.params.flowId, status: 'active' });
 
         if(!flow)
             return res.notFound();
