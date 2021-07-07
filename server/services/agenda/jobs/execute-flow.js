@@ -85,6 +85,8 @@ module.exports = agenda => {
 
             graph.configure(logic);
 
+            graph.currentFlow = flow;
+
             graph.start();
 
 
