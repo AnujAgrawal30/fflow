@@ -6,6 +6,7 @@ const blockingLoader = require('./blocking-loader');
 
 window.apiClient = new ApiClient('development', 'FE', {
     global401ErrorManager: async (next) => {
+        blockingLoader.hide();
         await loginModal.show();
         blockingLoader.show();
         const response = await next();
