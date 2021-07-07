@@ -30,7 +30,9 @@ global.utilities.githubHookExpress.init(process.env.GITHUB_HOOK_SECRET, ()=> {
     exec('npm run buildApp', (err, stdout, stderr) => {
         utilities.logger.info("Building Site", { tagLabel });
         exec('npm run buildSite', (err, stdout, stderr) => {
-            process.exit();
+            exec('pm2 reload pm2.config.json', (err, stdout, stderr) => {
+                //Do nothing
+            });
         });
     });
 
