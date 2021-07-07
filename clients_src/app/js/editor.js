@@ -44,7 +44,7 @@ function Editor(container_id, options, apiClient) {
     //create graph
     const graph = (this.graph = new LiteGraph.LGraph(null, apiClient));
     const graphcanvas = (this.graphcanvas = new LiteGraph.LGraphCanvas(canvas, graph));
-    graphcanvas.background_image = "/app/grid.36956d56.png";
+    graphcanvas.background_image = "/_/grid.png";
 
     graph.onAfterExecute = function() {
         graphcanvas.draw(true);

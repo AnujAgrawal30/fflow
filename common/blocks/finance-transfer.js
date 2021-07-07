@@ -107,9 +107,16 @@ class Wallet extends AbstractBlock {
 
     onConfigure() {
 
-        this.selectedAmountWidget.value = this.properties['amount'] === undefined ? 0 : this.properties['amount'];
-        this.selectedDebitedWalletWidget.value = this.properties['debitedWallet'] && this.properties['debitedWallet'].meta ? this.properties['debitedWallet'].meta.title : "";
-        this.selectedCreditedWalletWidget.value = this.properties['creditedWallet'] && this.properties['creditedWallet'].meta ? this.properties['creditedWallet'].meta.title : "";
+        setTimeout(()=> {
+
+            const amount = this.getInputData(1) === undefined ? this.properties['amount'] === undefined ? 0 : this.properties['amount'] : parseFloat(this.getInputData(1));
+
+            this.selectedAmountWidget.value = amount;
+            this.selectedDebitedWalletWidget.value = this.properties['debitedWallet'] && this.properties['debitedWallet'].meta ? this.properties['debitedWallet'].meta.title : "";
+            this.selectedCreditedWalletWidget.value = this.properties['creditedWallet'] && this.properties['creditedWallet'].meta ? this.properties['creditedWallet'].meta.title : "";
+
+        }, 0);
+
 
     }
 
@@ -133,15 +140,14 @@ class Wallet extends AbstractBlock {
 
     async onAction() {
 
-
         if(!this.properties['debitedWallet'] || !this.properties['creditedWallet'])
-            return;
+            return this.graph.logger.error("Missing debited wallet and/or credited wallet", { tagLabel: this.constructor.menu });
 
         const amount = this.getInputData(1) === undefined ? this.selectedAmountWidget.value : parseFloat(this.getInputData(1));
 
 
         if(typeof amount !=='number' || amount <= 0)
-            return;
+            return this.graph.logger.error("Input amount is not valid!", { tagLabel: this.constructor.menu, amount });
 
 
         const response = await this.graph.apiClient.Transfers.create({
@@ -150,6 +156,7 @@ class Wallet extends AbstractBlock {
             amount: Math.round(amount * 100) / 100
         }).execute();
 
+        this.graph.logger.info("Transaction between wallets completed!", { tagLabel: this.constructor.menu });
         this.triggerSlot(0, { timestamp: new Date().getTime(), data: response.data });
 
 

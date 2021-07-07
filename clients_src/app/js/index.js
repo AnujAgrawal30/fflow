@@ -83,6 +83,12 @@ loadFlow = async () => {
     document.getElementById('flow-title').innerText = response.data.name;
     //console.log(JSON.parse(response.data.logic));
     flowEditor.graph.currentFlow = response.data;
+    flowEditor.graph.logger = {
+        info: function () { console.log("[INFO]", ...arguments) },
+        warning: function () { console.log("[WARNING]", ...arguments) },
+        error: function () { console.log("[ERROR]", ...arguments) },
+        debug: function () { console.log("[DEBUG]", ...arguments) }
+    };
     blockingLoader.hide();
     flowEditor.graph.start();
 }

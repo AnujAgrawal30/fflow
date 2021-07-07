@@ -87,6 +87,8 @@ module.exports = agenda => {
 
             graph.currentFlow = flow;
 
+            graph.logger = utilities.logger;
+
             graph.start();
 
 
