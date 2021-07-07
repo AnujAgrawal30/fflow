@@ -22,8 +22,6 @@ to write code relying on Visual Scripting and the Rapyd API.
 
 ## Marketing presentation
 
-**CLICK ME, IM A VIDEO LINK**
-
 [![VIDEO](https://fflow.ninja/_/video-preview.gif)](https://www.youtube.com/watch?v=W-yU4j65Ee8E)
 
 
