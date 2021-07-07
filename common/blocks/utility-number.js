@@ -14,7 +14,7 @@ class Number extends AbstractBlock {
 
         this.addOutput('number', 'number');
 
-        this.addProperty('number');
+        this.addProperty('number', 0);
 
 
         this.resizable = true;
